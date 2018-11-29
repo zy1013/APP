@@ -14,9 +14,12 @@
 Route::get('/', function () {
     return view('welcome');
 });
+<<<<<<< HEAD
 
 
 Route::post('userinfo', 'UsersController@userinfo');
 Route::post('usercreate', 'UsersController@index');
 Route::get('register', 'UsersController@register');
 
+=======
+>>>>>>> 3aa3fb4436daed42ad00f17fe020046db6cae662
