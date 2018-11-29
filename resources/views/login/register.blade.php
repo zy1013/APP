@@ -42,10 +42,10 @@
         url:"userinfo",
         type:"post",
         dataType:"text",
-        data:{email:email2check},
+        {data:email:email2check},
         success:function(data){
              try {
-                    document.getElementById("message").innerHTML = data;
+                    $("#message").innerHTML = data;
                 } catch (e) {
                     return false;
                 }
@@ -53,5 +53,12 @@
         }
     });
 			}
+
+
+
+
+
+
+
 </script>
 </html>
