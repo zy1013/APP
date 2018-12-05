@@ -54,10 +54,14 @@ class UsersController extends Controller
     {
         //
         $count = DB::table('user')->count();
+        $users = DB::table('user')->get();
+        $count = 'this is';
+        foreach ($users as $user) {
+            $count = $count . " " . $user->uid;
+        }
 
 
-
-        return view('login.register',['number' => $count]);
+        return view('login.register',['number' => $count,'users'=>$users]);
     }
 
     /**
@@ -75,11 +79,21 @@ class UsersController extends Controller
         }
         else {
              
-            $message = 'You can use this email!';
+            $message = 'You can use this email to register!';
         }
         return $message;
     }
 
+    public function login(Request $request)
+    {
+        $email = $request->get('email');
+        $password = $request->get('password');
+
+
+
+        return view('homeregisted',['email' => $email,'password' => $password]);
+
+    }
     /**
      * Store a newly created resource in storage.
      *

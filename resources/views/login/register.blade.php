@@ -10,6 +10,26 @@
 </head>
 
 <body>
+
+
+
+
+
+    @foreach ($users as $user)
+    <p>This is user {{ $user->upassword }}</p>
+<tr>
+     <th class="text-center">你的名{{ $user->ufirstname }} </th>
+  <th class="text-center">你的姓{{ $user->ulastname }} </th>
+<th class="text-center">{{$user->uid}}</th>
+
+</tr>
+    @endforeach
+
+
+
+
+
+
 	<h4 >Now we have {{ $number }} users.</h4>
 	<h4 id="message"></h4>
 	<form action="usercreate" method="post" enctype="multipart/form-data">
