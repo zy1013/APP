@@ -13,7 +13,8 @@ use App\Http\Requests;
 use Input;
 class UsersController extends Controller
 {
-    //set a device status all with one url
+    //set a device status all with one url 
+    //and is for single device
    public function setdevice()
    {
         $email = $_POST['email'];
@@ -38,12 +39,24 @@ class UsersController extends Controller
 
    public function adddevice()
    {
-        $email = $_POST['email'];
         $dname = $_POST['dname'];
-        $did = $_POST['did'];
-        $dfunction = $_POST['dfunction'];
-        $dvalue = $_POST['dvalue'];
-        $dalias = $_POST['dalias'];
-        DB::table('device')->insert(['uemail' => $email, 'ufirstname' => $firstname,'ulastname' => $lastname,'upassword' => $password]);
+        
+        
+        $dfunction = 0;
+        $dvalue = 0;
+        $rid = $_POST['rid'];
+
+        DB::table('device')->insert(['dname' => $dname,'dfunction' => $dfunction,'dvalue' => $dvalue,'dbelonging' => $rid]);
+        return 'add succeeded!';
    }
+
+   public function deletedevice()
+   {
+        $did = $_POST['did'];
+        $deleted = DB::delete('delete from device where did = ?',[$did]);
+        return 'add succeeded!';
+   }
+
+   
+
 }

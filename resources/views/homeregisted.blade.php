@@ -16,7 +16,7 @@
     <img src="img/logo.png" style="height: 50%;width: 50%">
   </div>
 
-
+  
   <h2>hello {{$email}} and your password is {{$password}}</h2>
   <div class="col-md-2 col-lg-offset-3">
     <a class="btn btn-default btn-lg" href="/console" role="button">my console</a>

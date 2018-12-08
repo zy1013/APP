@@ -12,22 +12,123 @@
 */
 
 Route::get('/', function () {
-    return view('home');
+    return view('app.pages.Main');
 });
 
 
+Route::get('setdevice','DeviceController@setdevice');
 
-Route::get('/test', function () {
-    return view('app.pages.adminhome');
-});
+
+
 //from mainpage execute login action
-Route::get('/login', 'UsersController@login');
+Route::get('/login',function () {
+    return view('app.pages.Login');
+});
+
+
+
+Route::post('/confirmlogin','UsersController@confirmlogin');
 //jump to forget password page 
 Route::get('/forgetpassword', function () {
-    return view('forgetpassword');
+    return view('app.pages.Forget Password');
 });
 
-Route::get('register', 'UsersController@register');
+Route::get('/register', function () {
+    return view('app.pages.Register');
+});
+Route::post('/confirmregister','UsersController@index');
+Route::post('/userinfo','UsersController@userinfo');
+
+Route::get('/account', 'UsersController@account');
+
+Route::get('/message', function () {
+    return view('app.pages.UserMessage');
+});
+
+
+
+Route::get('/home', function () {
+    return view('app.pages.HomePage');
+});
+
+Route::get('/modifypassword', function () {
+    return view('app.pages.Modify Password');
+});
+
+Route::get('/newmessage', function () {
+    return view('app.pages.New Message');
+});
+
+Route::get('/confirmmodifypassword', 'UsersController@modifypassword');
+
+Route::get('/room', function () {
+    return view('app.pages.Room');
+});
+
+Route::get('/adddevice', function () {
+    return view('app.pages.Add Device');
+});
+
+Route::get('/addhome', function () {
+    return view('app.pages.Add Home');
+});
+
+Route::get('/device', function () {
+    return view('app.pages.Device');
+});
+
+Route::get('/editdevice', function () {
+    return view('app.pages.Edit Device');
+});
+
+Route::get('/log', function () {
+    return view('app.pages.Log');
+});
+
+Route::get('/newmessage', function () {
+    return view('app.pages.New Message');
+});
+
+Route::get('/newrequest', function () {
+    return view('app.pages.New Request');
+});
+
+Route::get('/request', function () {
+    return view('app.pages.Request');
+});
+
+Route::get('/homelist', function () {
+    return view('app.pages.Homelist');
+});
+
+Route::get('/adminmessage', function () {
+    return view('app.pages.Manage messages');
+});
+
+Route::get('/adminrequest', function () {
+    return view('app.pages.Manage requests');
+});
+
+Route::get('/adminsinglemessage', function () {
+    return view('app.pages.Message');
+});
+
+Route::get('/adminrequest', function () {
+    return view('app.pages.Manage requests');
+});
+
+Route::get('/viewrequest', function () {
+    return view('app.pages.View request');
+});
+
+Route::get('/adminprofile', function () {
+    return view('app.pages.Administrator profile');
+});
+
+
+Route::get('/changepassword', function () {
+    return view('app.pages.Change password');
+});
 
 //check email exist and legal
 Route::post('/checkemail', 'UsersController@checkuseremail');
@@ -40,6 +141,13 @@ Route::post('userinfo', 'UsersController@userinfo');
 
 //confirm to register user
 Route::post('usercreate', 'UsersController@index');
+
+
+
+
+
+
+
 
 //goto 
 Route::get('homedashboardpage','HomeController@index');
@@ -80,6 +188,7 @@ Route::post('addrelation','relationController@addrelation');
 Route::post('deleterelation','relationController@deleterelation');
 Route::post('getrelation','relationController@getrelation');
 
+Route::get('test', 'TestController@index');
 
 
 

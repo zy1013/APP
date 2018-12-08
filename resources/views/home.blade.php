@@ -24,11 +24,11 @@
     <a class="btn btn-default btn-lg" href="/register" role="button">Register</a>
   </div>
 </div>
-
+{{ session('timestamp') }}
 <div class="row">
   <ul class="nav nav-tabs">
-  <li class="active" onclick="mainNewsClicked(this)"><a href="#">News</a></li>
-  <li onclick="mainInstructionClicked(this)"><a href="#">Instruction</a></li>
+  <li class="active" onfocus="mainNewsClicked(this)"><a href="#">News</a></li>
+  <li onfocus="mainInstructionClicked(this)"><a href="#">Instruction</a></li>
   </ul>
 </div>
 <div>

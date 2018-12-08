@@ -38,11 +38,11 @@ class UsersController extends Controller
             $message = 'Your email has already been registered!';
         }
         else {
-             $insert_bool = DB::table('user')->insert(['uemail' => $email, 'ufirstname' => $firstname,'ulastname' => $lastname,'upassword' => $password]);
+             $insert_bool = DB::table('user')->insert(['uemail' => $email, 'ufirstname' => $firstname,'ulastname' => $lastname,'upassword' => $password,'utype' => 0]);
             $message = 'Register succeeded!';
         }
 
-        return view('login.registerresult',['message' => $message]);
+        return view('app.pages.HomePage',['message' => $message]);
     }
 
     /**
@@ -53,6 +53,7 @@ class UsersController extends Controller
     public function register()
     {
         //
+        session(['timestamp' => date("h:i:sa")]);
         $count = DB::table('user')->count();
         $users = DB::table('user')->get();
         $count = 'this is';
@@ -63,6 +64,44 @@ class UsersController extends Controller
 
         return view('login.register',['number' => $count,'users'=>$users]);
     }
+
+
+    public function confirmlogin()
+    {
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+        session(['timestamp' => date("h:i:sa")]);
+        $flag = 0;
+        $type=0;
+        $users = DB::table('user')->get();
+
+        foreach ($users as $user) {
+            if($user->uemail==$email)
+            {
+                $flag=1;//user exist
+                if($password==$user->upassword)
+                {
+                    $type=$user->utype;
+                    $uid=$user->uid;
+                    session(['uid' => $uid]);
+                    $flag=2;
+               }
+            }
+            
+
+        }
+        if($flag==2)
+            if($type==1)return view('app.pages.Administrator dashboard',['users'=>$users]);
+            else
+            return view('app.pages.HomePage',['users'=>$users]);
+        if($flag==1)
+            return view('app.pages.ErrorPage',['message'=>"Your password is wrong!"]);
+        if($flag==0)
+            return view('app.pages.ErrorPage',['message'=>"This email doesn\'t exist"]);
+
+    }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -94,59 +133,21 @@ class UsersController extends Controller
         return view('homeregisted',['email' => $email,'password' => $password]);
 
     }
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+
+    public function account()
     {
-        //
+        $users = DB::table('user')->get();
+        $thisuser;
+        foreach ($users as $user) {
+            if($user->uid==session('uid'))
+            {
+                $thisuser=$user;
+               
+            } 
+        }
+
+
+        return view('app.pages.Account',['user'=>$thisuser]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }
