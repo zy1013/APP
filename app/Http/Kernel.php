@@ -65,11 +65,7 @@ class Kernel extends HttpKernel
     /**
      * The priority-sorted list of middleware.
      *
-<<<<<<< HEAD
      * This forces non-global middleware to always be in the given order.
-=======
-     * This forces the listed middleware to always be in the given order.
->>>>>>> 3aa3fb4436daed42ad00f17fe020046db6cae662
      *
      * @var array
      */

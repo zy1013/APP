@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <title>HTML Page for exam</title>
+</head>
+<style type="text/css">
+	form{
+		text-align: center;
+		background-color: #FFFFFF;
+		margin-left: 10%;
+		margin-right: 10%;
+	}
+	.password{
+		border-bottom:2px solid #FF0000;
+		border-top:0px; 
+		border-left:0px; 
+		border-right:0px; 
+	}
+</style>
+<body>
+	<div style="background-color: #BBFFEE;margin-bottom: 10%">
+		<div style="text-align: center;">
+			<p style="font-weight:700">Fill the form to create a new account.</p>
+		</div>
+			
+	<a href="airport.php">Airport</a>
+	<div>
+		<form action="register.php" method="post">
+
+			<h3  style="display: inline;">login: </h3>
+			<input class="password" type="text" name="login" onchange="checkLogin(this)">
+
+			<h3 id="alert" tyle="color: #AA0000">Size matters: please enter a longer login"</h3><br>
+
+			<h3 style="display: inline;">password: </h3>
+			<input id="pw" class="password" type="password" style="display: inline;" name="password">
+
+			<h3 id="repeatAlert" style="display: inline;">Repeat Password: </h3>
+			<input class="password" type="password" style="display: inline;"name="passwordConfirm" onchange="checkRepeatPassword(this)"><br>
+
+			<input style="border-radius:30px;height: 50px;width: 100px;background-color: #000000;color:#FFFFFF;font-size: 30px;" type="submit" name="submitButton" value="submit">
+		</form>
+	</div>
+	</div>
+<script type="text/javascript">
+	function checkLogin(obj){
+	var login=obj.value;//get login value;
+	if(login.length<8)
+		document.getElementById("alert").style.visibility = "visible";
+	else {
+		document.getElementById("alert").style.visibility = "hidden";
+	}
+}
+
+	function checkRepeatPassword(obj){
+	var pw=obj.value;//get repeat password value;
+	var pw1=document.getElementById("pw").value;//get previous password.
+	console.log(pw);//for debug
+	console.log(pw1);
+	if(pw==pw1)
+		document.getElementById("repeatAlert").style.color = 'green';
+	else {
+		document.getElementById("repeatAlert").style.color = 'red';
+	}
+}
+</script>
+
+	
+</body>
+</html>

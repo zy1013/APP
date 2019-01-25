@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<meta name="csrf-token" content="{{ csrf_token() }}">
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Retrieve</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="bootstrap.min.css" rel="stylesheet">  
+    <!-- Custom CSS -->   
+     <script type="text/javascript">
+        var reg=/^[a-zA-Z]\w*$/;
+        var flag1=false,flag2=false;
+       function chang1(obj){
+    var pwd=obj.value;
+    var reg=/^(?![a-zA-Z0-9]+$)(?![A-Z0-9\\_%&',;=?$+#@!~:"/.`^|*<>{}-]+$)(?![A-Za-z\\_%&',;=?$+#@!~:""/.`^|*<>{}-]+$)(?![a-z0-9\\_%&',;=?$+#@!~:""/.`^|*<>{}-]+$)[a-zA-Z0-9\\_%&',;=?$+#@!~:""/.`^|*<>{}-]{8,16}$/; 
+    if(!reg.test(pwd)) {
+        document.getElementById("ps1").innerHTML="<font color='red'>Password needs 8~16 words which contain special symbol, number,capital and small letters.</font>";
+　　　　flag1=false;
+    }
+    else{
+        document.getElementById("ps1").innerHTML="<font color='green'>format correct</font>";
+        flag1=true;
+    }
+}
+function chang2(obj){
+    var pwd1=obj.value;
+    var pwd=document.retrieve.password.value;
+    var reg=/^(?![a-zA-Z0-9]+$)(?![A-Z0-9\\_%&',;=?$+#@!~:"/.`^|*<>{}-]+$)(?![A-Za-z\\_%&',;=?$+#@!~:""/.`^|*<>{}-]+$)(?![a-z0-9\\_%&',;=?$+#@!~:""/.`^|*<>{}-]+$)[a-zA-Z0-9\\_%&',;=?$+#@!~:""/.`^|*<>{}-]{8,16}$/; 
+    if(pwd!=pwd1){
+        //alert("两次输入密码不一致！");
+        document.getElementById("ps2").innerHTML="<font color='red'>Two passwords are inconsistent!</font>";
+        flag2=false;
+    }
+    else if(!reg.test(pwd1)){
+        document.getElementById("ps2").innerHTML="<font color='red'>Password needs 8~16 words which contain special symbol, number,capital and small letters.</font>";
+　　　　flag2=false;
+    }
+    else{       
+        document.getElementById("ps2").innerHTML="<font color='green'>format correct</font>";
+        flag2=true;
+    }
+}
+ 
+function sub(){
+    if(flag1&&flag2){
+        alert("Retrieve success!");
+        document.retrieve.submit();       
+    }
+    else{
+        alert("Please Modify Your New Password");      
+    }
+}
+    function res(){
+    document.retrieve.password.value="";
+    document.retrieve.passwordAgain.value="";
+    document.getElementById("ps1").innerHTML="";
+    document.getElementById("ps2").innerHTML="";
+}
+     </script>
+
+
+
+</head>
+<style type="text/css">
+    nav{
+        width: 100%;
+        height: 60px;   
+        background: rgba(0,0,0,.3);
+        position: absolute;
+        z-index: 10;
+    }
+    nav ul{
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    nav ul li{
+        text-align: center;
+        float: left;
+        line-height: 60px;
+    }
+    nav ul li a{
+        width: 100px;
+        color: #fff;
+        font-size: 20px;
+        font-weight: 600;
+        display: block;
+    }
+    nav ul li a:hover,nav ul li a:visited{
+        text-decoration: none;
+        background: rgba(0,0,0,.5);
+        color: #fff;
+    }
+    .words{font-size: 30px;
+           font-family: verdana;
+            letter-spacing: 0px;
+            position: absolute;
+            top:10%; 
+            left:3%;          
+            text-align: center;
+            }
+    .imgw{position: relative;}
+
+</style>
+<body>
+    <nav>
+        <ul>
+            <li class="active"><a href="Main.html">Main</a></li>
+            <li><a href="Register.html">Register</a></li>
+            <li><a href="Login.html">Login</a></li>          
+        </ul>
+    </nav>
+<div class="imgw">
+    <img src="bg.jpg" alt= "" width="100%">
+</div>
+    <div class="words" >
+    <!-- .panel-body -->
+<form method="POST" name="retrieve" action="retrieve.html">
+    <div class="words" ><img src="logo.png">
+    <br>
+     <div class="container">
+        <div class="row">
+            <div class="col-md-4  col-md-offset-4">
+                <div class="login-panel panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Retrieve Password</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form role="form">
+                            <fieldset>
+                                <div class="form-group">                          
+                                    <label style="font-size: 15px;">New Password:</label>               
+                                    <input  name="password" class="form-control" required="true" type="password" onchange="chang1(this)" value="" id="pwd" autofocus></input>             
+                                    <label id="ps1" style="font-size: 10px"></label>
+                                    <br>
+                                </div>
+                                <div class="form-group">
+                                    <label  style="font-size: 15px;">Confirm New Password:</label>              
+                                    <input   name="passwordAgain" class="form-control" required="true" type="password" onchange="chang2(this)" value="" id="pwd1"></input>
+                                    <label id="ps2" style="font-size: 10px"></label>
+                                    <br>
+                                </div>
+                               
+        <div align="center">
+            <button id="Confirm" value="Confirm" class="btn btn-info" style="margin-right: 50px;width: 80px;" onclick="sub()">Confirm</button>        
+            <button type="reset" value="Reset" class="btn btn-info" onclick="res()" style="width: 80px;">Reset</button>
+        </div>
+                             <fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+     <br>
+</div>
+    </form>
+    </div> 
+    <div style="margin-top: 30%;background-color:#FAEBD7; text-align: center;">Copyright©2018 W4Z</div>
+    <!-- jQuery -->
+    <script src="jquery.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="bootstrap.min.js"></script>
+    <!-- Page-Level Demo Scripts - Tables - Use for reference -->
+    <script>
+    $(document).ready(function() {
+        $('#dataTables-example').DataTable({
+            responsive: true
+        });
+    });
+    </script>
+
+</body>
+
+</html>

@@ -11,189 +11,247 @@
 |
 */
 
-Route::get('/', function () {
-    return view('app.pages.Main');
+
+/*
+|--------------------------------------------------------------------------
+| Route templates
+|--------------------------------------------------------------------------
+|plain direct
+|Route::get('/url', function () {
+|    return view('viewName');
+|});
+|——————————————————
+|Use Controller(get)
+|——————————————————
+|Route::get('/test', 'TestController@methodName');
+|
+|————————————————————
+|Use Controller(post)
+|————————————————————
+|Route::post('/test', 'TestController@methodName');
+|
+*/
+
+Route::get('/layout', function () {
+    return view('layout.dashboard');
 });
+Route::get('/testlayout', function () {
+    return view('index1');
+});
+// Route::get('test', function () {
+//     return view('app.pages.Main');
+// });
+
+//Test demos' functionalities. 
+Route::get('/test', 'TestController@index');
+
+/*
+|--------------------------------------------------------------------------
+| Main pages
+|--------------------------------------------------------------------------
+| About this page:
+|   Provide register, login, password retrieve and other unlogin services.
+|    
+|
+*/
+Route::post('/devdata','TestController@dev');//To login page.
+
+Route::post('/logout','UsersController@logout');//To login page.
 
 
-Route::get('setdevice','DeviceController@setdevice');
+Route::get('/', 'UsersController@index');
+//Front page for both registered  and unregistered account.done.
 
-
-
-//from mainpage execute login action
 Route::get('/login',function () {
-    return view('app.pages.Login');
-});
+    return view('login');
+});//To login page.
+
+Route::post('/confirmlogin','UsersController@confirmLogin');//To login page.
+
+Route::post('/addmessage','UsersController@addmessage');//To login page.
+
+Route::post('/updateaccount','UsersController@updateaccount');//To login page.
 
 
+Route::post('/addroom','HomesController@addroom');//To login page.
 
-Route::post('/confirmlogin','UsersController@confirmlogin');
-//jump to forget password page 
-Route::get('/forgetpassword', function () {
-    return view('app.pages.Forget Password');
-});
 
 Route::get('/register', function () {
-    return view('app.pages.Register');
-});
-Route::post('/confirmregister','UsersController@index');
-Route::post('/userinfo','UsersController@userinfo');
+//Register page. Not check visitor login status.
+    return view('register');
+});//To register page.
 
-Route::get('/account', 'UsersController@account');
-
-Route::get('/message', function () {
-    return view('app.pages.UserMessage');
-});
-
-
-
-Route::get('/home', function () {
-    return view('app.pages.HomePage');
-});
+Route::get('/account', 'UsersController@accountpage');
 
 Route::get('/modifypassword', function () {
-    return view('app.pages.Modify Password');
+    return view('modifypassword');
 });
 
-Route::get('/newmessage', function () {
-    return view('app.pages.New Message');
-});
+Route::get('/message', 'UsersController@message');
 
-Route::get('/confirmmodifypassword', 'UsersController@modifypassword');
+Route::post('/insertdevice', 'HomesController@insertdevice');
 
-Route::get('/room', function () {
-    return view('app.pages.Room');
-});
-
-Route::get('/adddevice', function () {
-    return view('app.pages.Add Device');
-});
-
-Route::get('/addhome', function () {
-    return view('app.pages.Add Home');
-});
-
-Route::get('/device', function () {
-    return view('app.pages.Device');
-});
-
-Route::get('/editdevice', function () {
-    return view('app.pages.Edit Device');
-});
-
-Route::get('/log', function () {
-    return view('app.pages.Log');
-});
-
-Route::get('/newmessage', function () {
-    return view('app.pages.New Message');
-});
-
-Route::get('/newrequest', function () {
-    return view('app.pages.New Request');
-});
 
 Route::get('/request', function () {
-    return view('app.pages.Request');
+    return view('request');
+});
+
+Route::get('/room','HomesController@roompage');
+
+Route::get('/adddevice','HomesController@adddevicepage');
+
+Route::post('/inserthome','HomesController@inserthome');
+
+Route::get('/admin', 'UsersController@adminpage');
+
+Route::get('/managechat', 'UsersController@message');
+
+Route::get('/adminprofile', function () {
+    return view('adminprofile');
+});
+
+Route::get('/device','HomesController@devicepage');
+
+Route::get('/newrequest', function () {
+    return view('newrequest');
+});
+
+Route::get('/adminchangepassword', function () {
+    return view('adminchangepassword');
+});
+
+Route::get('/managerequest', function () {
+    return view('managerequest');
 });
 
 Route::get('/homelist', function () {
-    return view('app.pages.Homelist');
+    return view('homelist');
 });
-
-Route::get('/adminmessage', function () {
-    return view('app.pages.Manage messages');
-});
-
-Route::get('/adminrequest', function () {
-    return view('app.pages.Manage requests');
-});
-
-Route::get('/adminsinglemessage', function () {
-    return view('app.pages.Message');
-});
-
-Route::get('/adminrequest', function () {
-    return view('app.pages.Manage requests');
-});
-
-Route::get('/viewrequest', function () {
-    return view('app.pages.View request');
-});
-
-Route::get('/adminprofile', function () {
-    return view('app.pages.Administrator profile');
+Route::get('/addhome', function () {
+    return view('addhome');
 });
 
 
-Route::get('/changepassword', function () {
-    return view('app.pages.Change password');
-});
 
-//check email exist and legal
-Route::post('/checkemail', 'UsersController@checkuseremail');
+Route::get('/activate/{uid}/{secret}','UsersController@activate');//To activate the account
 
-//send password to email
-Route::post('/sendemail','UserController@sendemail');
+Route::post('/switch/{uid}','HomesController@switch');//To activate the account
 
-//get user infomation return the user's infomation
-Route::post('userinfo', 'UsersController@userinfo');
+Route::post('/checkemail', 'UsersController@checkEmail');
 
-//confirm to register user
-Route::post('usercreate', 'UsersController@index');
+Route::get('/forgetpassword', function () {
+//Front page for both registered  and unregistered account.
+    return view('forgetPassword');
+});//to forgetpassword page.
 
+Route::post('/confirmregister', 'UsersController@confirmregister');
 
+Route::get('/sendmail', 'UsersController@sendmail');
 
 
+Route::get('/homepage',function () {
+    return view('homepage');
+});//To login page.
+//root page.
+// Route::get('/','HomeController@home');
 
+//login page.
+// Route::post();
 
-
-
-//goto 
-Route::get('homedashboardpage','HomeController@index');
-
-//Below is the url for home pages
-
-//CRUD for device
-Route::post('setdevice','DeviceController@setdevice');
-Route::post('adddevice','DeviceController@adddevice');
-Route::post('deletedevice','DeviceController@deletedevice');
-Route::post('getdevice','DeviceController@getdevice');
-
-//CRUD for room
-Route::post('setroom','roomController@setroom');
-Route::post('addroom','roomController@addroom');
-Route::post('deleteroom','roomController@deleteroom');
-Route::post('getroom','roomController@getroom');
-
-//CRUD for home
-Route::post('sethome','homeController@sethome');
-Route::post('addhome','homeController@addhome');
-Route::post('deletehome','homeController@deletehome');
-Route::post('gethome','homeController@gethome');
-
-//CRUD for User
-Route::post('setuser','userController@setuser');
-Route::post('adduser','userController@adduser');
-Route::post('deleteuser','userController@deleteuser');
-Route::post('getuser','userController@getuser');
-//CRUD for message
-Route::post('setmessage','messageController@setmessage');
-Route::post('addmessage','messageController@addmessage');
-Route::post('deletemessage','messageController@deletemessage');
-Route::post('getmessage','messageController@getmessage');
-//CRUD for relation
-Route::post('setrelation','relationController@setrelation');
-Route::post('addrelation','relationController@addrelation');
-Route::post('deleterelation','relationController@deleterelation');
-Route::post('getrelation','relationController@getrelation');
-
-Route::get('test', 'TestController@index');
+//register page.
 
 
 
-//below for admin
-
-//admin get message list
 
 
+//retrieve password page.
+
+
+/*
+|--------------------------------------------------------------------------
+| Home pages
+|--------------------------------------------------------------------------
+| About this page:
+|   Nav: | Homepage
+|        | Account_____My account
+|        |        |____Modify password
+|        |        |____Request
+|        | Home________(User-defined Home name)  
+|        |     |_______Room   
+|        |     |_______Device
+|        | Homelist
+*/
+//Click Homepage
+Route::get('/home','HomesController@homeIndex');
+/*
+|--------------------------------------------------------------------------
+| Home
+|--------------------------------------------------------------------------
+| 1.Here users can manipulate every device's available function.
+|   For A/C, you can change the mode and the number of temperature.
+|   For Light, you can turn it on and off.
+|   For 
+*/
+
+
+
+
+//My account
+//Modify password
+//My home
+//Room
+//Device
+//Homelist
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Route::get('setdevice','DeviceController@setdevice');
+
+
+
+// //from mainpage execute login action
+// Route::get('/login',function () {
+//     return view('app.pages.Login');
+// });
+
+
+
+// Route::post('/confirmlogin','UsersController@confirmlogin');
+// //jump to forget password page 
+// Route::get('/forgetpassword', function () {
+//     return view('app.pages.Forget Password');
+// });
+
+// Route::post('/confirmregister','UsersController@confirmregister');
+// Route::post('/userinfo','UsersController@userinfo');
+
+// Route::get('/account', 'UsersController@account');
+
+// Route::get('/message', function () {
+//     return view('app.pages.UserMessage');
+// });
+// Í
+
+// //send password to email
+// Route::post('/sendemail','UserController@sendemail');
+
+// //get user infomation return the user's infomation
+// Route::post('userinfo', 'UsersController@userinfo');
+
+// //confirm to register user
+// Route::post('usercreate', 'UsersController@index');
